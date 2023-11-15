@@ -13,17 +13,17 @@ function App() {
 
   const [search, setSearch] = useState('');
 
-  function handleDelete(index) {
+  const handleDelete = (index) => {
     const newNotes = [...notes];
     newNotes.splice(index, 1);
     setNotes(newNotes);
   };
 
-  function handleSearch(value) {
+  const handleSearch = (value) => {
     setSearch(value);
   };
 
-  function addNote(newNote) {
+  const addNote = (newNote) => {
     setNotes([...notes, newNote]);
   };
 
