@@ -3,7 +3,7 @@ import React from 'react';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const Home = ({ notes, handleDelete, search, handleSearch }) => {
+function Home({ notes, handleDelete, search, handleSearch }) {
   const filteredNotes = notes.filter(note =>
     note.title.toLowerCase().includes(search.toLowerCase())
   );

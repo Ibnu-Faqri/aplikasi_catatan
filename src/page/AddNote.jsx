@@ -14,7 +14,7 @@ function AddNote({addNote}) {
     setIsFormValid(title.trim() !== '' && body.trim() !== '');
   }, [title, body]);
 
-  const handleSubmit = () => {
+  function handleSubmit() {
     if (isFormValid){
       const currentDate = new Date();
       const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
