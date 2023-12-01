@@ -2,7 +2,6 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { BsPerson, BsLock } from "react-icons/bs";
-
 import { ButtonDefault, ButtonDisabled } from '../components/Button';
 
 function FormLoginAndRegis({ onSubmit, username, password, setUsername, setPassword, isSubmitDisabled }) {

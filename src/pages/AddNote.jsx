@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "react-bootstrap";
-import { addNote } from "../utils/local";
+import { addNote } from "../utils/network";
 import Form from "../components/form";
 
 
@@ -9,9 +9,8 @@ const AddNotePage = () => {
   const navigate = useNavigate();
 
   const [note, setNote] = useState({
-    id: Date.now(),
     title: "",
-    createdAt: "",
+    createdAt: new Date(),
     body: "",
   });
 
@@ -33,7 +32,6 @@ const AddNotePage = () => {
           onSubmit={onSubmitHandler}
           onChange={onHandleChangeNote}
           title={note.title}
-          createdAt={note.createdAt}
           body={note.body}
         />
       </Card>

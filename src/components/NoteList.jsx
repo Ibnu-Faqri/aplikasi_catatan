@@ -7,6 +7,9 @@ const NoteList = ({ notes, onDelete }) => {
   // Tentukan jumlah kolom berdasarkan jumlah data
   const numberOfCols = notes.length < 3 ? notes.length : 4;
 
+  const currentDate = new Date();
+  const formattedDated = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+
   return (
     <Row xs={1} md={numberOfCols} className="g-4">
       {notes.map((note, index) => (
@@ -16,7 +19,7 @@ const NoteList = ({ notes, onDelete }) => {
               <h5 className="card-title">{note.title}</h5>
               <p className="card-text">{note.body}</p>
               <p className="card-text">
-                <small className="text-muted">createdAt: {note.createdAt}</small>
+                <small className="text-muted">{formattedDated}</small>
               </p>
               <Button onClick={() => onDelete(note.id)} variant="light">Hapus</Button>
             </Card.Body>

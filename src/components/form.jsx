@@ -12,18 +12,7 @@ const Form = ({ onSubmit, onChange, title, createdAt, body }) => {
           onChange={(event) => onChange('title', event.target.value)}
           type="text"
           value={title}
-          placeholder="Contoh: Ngapain gitu"
-          required
-          className="form-control"
-        />
-      </div>
-
-      <div className="mb-3">
-        <label className="text-base text-purple-800">Tanggal:</label>
-        <input
-          onChange={(event) => onChange('createdAt', event.target.value)}
-          type="date"
-          value={createdAt}
+          placeholder="Contoh: Mau ngapain"
           required
           className="form-control"
         />
@@ -41,7 +30,7 @@ const Form = ({ onSubmit, onChange, title, createdAt, body }) => {
         />
       </div>
 
-      {title && createdAt && body ? (
+      {title && body ? (
         <ButtonDefault type="submit">
           Submit
         </ButtonDefault>

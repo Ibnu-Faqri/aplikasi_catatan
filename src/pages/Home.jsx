@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Row, Col, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { FaPlus,FaSearch   } from "react-icons/fa";
 import NoteList from "../components/NoteList";
-import { deleteNote, getNotes } from "../utils/local";
+import { deleteAccesToken, deleteNote, getNotes } from "../utils/network";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -20,27 +20,54 @@ const HomePage = () => {
     setSearch(event.target.value);
   };
 
-  const onHandleDeleteNote = (id) => {
-  deleteNote(id);
-  setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+  const onHandleDeleteNote = async (id) => {
+    const { error } = await deleteNote(id);
+    if (error) {
+      alert("Gagal menghapus catatan dari server!");
+      console.error(`Error deleting note with id ${id}`);
+    } else {
+      setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+    }
+  };
+  
+
+const handleLogoutButton = () => {
+  deleteAccesToken();
+  navigate("/login");
 };
 
-  useEffect(() => {
-    console.log("Efek pembaruan!");
-    const data = getNotes();
-    setNotes(data);
-  }, []);
+useEffect(() => {
+  const fetchData = async () => {
+    const { error, data } = await getNotes();
+
+    if (error) {
+      alert("Error mengambil data dari database!");
+      console.log(`Error: ${error}`);
+    } else {
+      setNotes(data);
+    }
+  };
+
+  fetchData();
+}, []);
 
   return (
     <div className="container mx-auto min-h-screen">
-      <Row className="justify-content-center mt-4">
+      <Row className="justify-content-center mt-4 mb-3">
+      <Col >
+          <Button
+            onClick={handleLogoutButton}
+            variant="danger"
+            className="mb-3"
+          >Logout</Button>
+        </Col>
         <Col md={6}>
           <InputGroup className="mb-3">
             <FormControl
               value={search}
               onChange={(event) => onHandleSearchNote(event)}
               type="text"
-              placeholder="Ketik di sini untuk mencari catatan berdasarkan isi"
+              placeholder="Ketik di sini untuk mencari catatan"
             />
             <InputGroup.Text><FaSearch /></InputGroup.Text>
           </InputGroup>
@@ -49,7 +76,7 @@ const HomePage = () => {
           <Button
             onClick={() => navigate("/add-note")}
             variant="primary"
-            className="ml-3"
+            className="ml-3 mb-3"
           >
             <FaPlus />
             Tambah Catatan
